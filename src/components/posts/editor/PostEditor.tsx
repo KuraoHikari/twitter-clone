@@ -8,11 +8,14 @@ import "./styless.css";
 import UserAvatar from "@/components/UserAvatar";
 import { Button } from "@/components/ui/button";
 import { submitPost } from "./actions";
+import { useSubmitPostMutation } from "./mutations";
 
 interface PostEditorProps {}
 
 const PostEditor = ({}: PostEditorProps) => {
   const { user } = useSession();
+
+  const mutation = useSubmitPostMutation();
 
   const textEditor = useEditor({
     extensions: [
@@ -32,8 +35,11 @@ const PostEditor = ({}: PostEditorProps) => {
     }) || "";
 
   async function onSubmit() {
-    await submitPost(input);
-    textEditor?.commands.clearContent();
+    mutation.mutate(input, {
+      onSuccess: () => {
+        textEditor?.commands.clearContent();
+      },
+    });
   }
 
   return (
