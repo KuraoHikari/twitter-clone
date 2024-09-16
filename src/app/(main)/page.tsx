@@ -2,6 +2,7 @@ import PostEditor from "@/components/posts/editor/PostEditor";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { TabsContent } from "@radix-ui/react-tabs";
 import ForYouFeed from "./ForYouFeed";
+import TrendsSideBar from "@/components/TrendsSidebar";
 
 export default function Home() {
   return (
@@ -20,6 +21,7 @@ export default function Home() {
           <TabsContent value="following">Following</TabsContent>
         </Tabs>
       </div>
+      <TrendsSideBar />
     </main>
   );
 }
