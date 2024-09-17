@@ -3,6 +3,7 @@ import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { TabsContent } from "@radix-ui/react-tabs";
 import ForYouFeed from "./ForYouFeed";
 import TrendsSideBar from "@/components/TrendsSidebar";
+import FollowingFeed from "./FollowingFeed";
 
 export default function Home() {
   return (
@@ -18,7 +19,9 @@ export default function Home() {
           <TabsContent value="for-you">
             <ForYouFeed />
           </TabsContent>
-          <TabsContent value="following">Following</TabsContent>
+          <TabsContent value="following">
+            <FollowingFeed />
+          </TabsContent>
         </Tabs>
       </div>
       <TrendsSideBar />

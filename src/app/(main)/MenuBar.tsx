@@ -8,7 +8,7 @@ interface MenuBarProps {
   className?: string;
 }
 
-export default async function MenuBar({ className }: MenuBarProps) {
+export default function MenuBar({ className }: MenuBarProps) {
   return (
     <div className={className}>
       <MenuBarItem href="/" title="Home" icon={Home} />
