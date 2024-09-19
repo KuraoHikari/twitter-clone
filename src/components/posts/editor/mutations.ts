@@ -1,4 +1,6 @@
+import { useSession } from "@/app/(main)/SessionProvider";
 import { useToast } from "@/components/ui/use-toast";
+import { PostsPage } from "@/lib/types";
 import {
   InfiniteData,
   QueryFilters,
@@ -6,37 +8,36 @@ import {
   useQueryClient,
 } from "@tanstack/react-query";
 import { submitPost } from "./actions";
-import { PostsPage } from "@/lib/types";
 
 export function useSubmitPostMutation() {
   const { toast } = useToast();
+
   const queryClient = useQueryClient();
+
+  const { user } = useSession();
 
   const mutation = useMutation({
     mutationFn: submitPost,
     onSuccess: async (newPost) => {
-      const queryFilter: QueryFilters = { queryKey: ["post-feed", "for-you"] };
+      const queryFilter = {
+        queryKey: ["post-feed"],
+        predicate(query) {
+          return (
+            query.queryKey.includes("for-you") ||
+            (query.queryKey.includes("user-posts") &&
+              query.queryKey.includes(user.id))
+          );
+        },
+      } satisfies QueryFilters;
 
       await queryClient.cancelQueries(queryFilter);
 
       queryClient.setQueriesData<InfiniteData<PostsPage, string | null>>(
         queryFilter,
         (oldData) => {
-          console.log("🚀 ~ onSuccess: ~ oldData:", oldData);
           const firstPage = oldData?.pages[0];
-          console.log("🚀 ~ onSuccess: ~ firstPage:", firstPage);
 
           if (firstPage) {
-            console.log({
-              pageParams: oldData.pageParams,
-              pages: [
-                {
-                  posts: [newPost, ...firstPage.posts],
-                  nextCursor: firstPage.nextCursor,
-                },
-                ...oldData.pages.slice(1),
-              ],
-            });
             return {
               pageParams: oldData.pageParams,
               pages: [
@@ -54,7 +55,7 @@ export function useSubmitPostMutation() {
       queryClient.invalidateQueries({
         queryKey: queryFilter.queryKey,
         predicate(query) {
-          return !query.state.data;
+          return queryFilter.predicate(query) && !query.state.data;
         },
       });
 

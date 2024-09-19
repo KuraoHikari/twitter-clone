@@ -8,6 +8,7 @@ import PostToggleButton from "./PostToggleButton";
 import { useSession } from "@/app/(main)/SessionProvider";
 import Linkify from "../linkify/Linkify";
 import UserTooltip from "../linkify/UserTooltip";
+import MediaListPreviews from "./media/MediaListPreviews";
 
 interface PostProps {
   post: PostData;
@@ -54,6 +55,9 @@ export default function Post({ post }: PostProps) {
       <Linkify>
         <div className="whitespace-pre-line break-words">{post.content}</div>
       </Linkify>
+      {!!post.attachments.length && (
+        <MediaListPreviews attachments={post.attachments} />
+      )}
     </article>
   );
 }
