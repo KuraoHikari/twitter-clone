@@ -9,6 +9,8 @@ import { useSession } from "@/app/(main)/SessionProvider";
 import Linkify from "../linkify/Linkify";
 import UserTooltip from "../linkify/UserTooltip";
 import MediaListPreviews from "./media/MediaListPreviews";
+import LikeButton from "./like/LikeButton";
+import { MessageSquare } from "lucide-react";
 
 interface PostProps {
   post: PostData;
@@ -58,6 +60,25 @@ export default function Post({ post }: PostProps) {
       {!!post.attachments.length && (
         <MediaListPreviews attachments={post.attachments} />
       )}
+      <hr className="text-muted-foreground" />
+      <div className="flex justify-between gap-5">
+        <div className="flex items-center gap-5">
+          <LikeButton
+            postId={post.id}
+            initialState={{
+              likes: post._count.likes,
+              isLikedByUser: post.likes.some((like) => like.userId === user.id),
+            }}
+          />
+          <button className="flex items-center gap-2">
+            <MessageSquare className="size-5" />
+            <span className="text-sm font-medium tabular-nums">
+              {post._count.comments}{" "}
+              <span className="hidden sm:inline">comments</span>
+            </span>
+          </button>
+        </div>
+      </div>
     </article>
   );
 }
