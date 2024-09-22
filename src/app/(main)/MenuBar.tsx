@@ -1,18 +1,24 @@
 "use client";
 
-import { Bell, Home } from "lucide-react";
+import { Bell, Bookmark, Home } from "lucide-react";
 
 import MenuBarItem from "./MenuBarItem";
+import { NotificationCountInfo } from "@/lib/types";
+import NotificationsButton from "./notifications/NotificationsButton";
 
 interface MenuBarProps {
   className?: string;
+  initialState: NotificationCountInfo;
 }
 
-export default function MenuBar({ className }: MenuBarProps) {
+export default function MenuBar({ className, initialState }: MenuBarProps) {
   return (
     <div className={className}>
       <MenuBarItem href="/" title="Home" icon={Home} />
-      <MenuBarItem href="/notifications" title="Notifications" icon={Bell} />
+      <NotificationsButton
+        initialState={{ unreadCount: initialState.unreadCount }}
+      />
+      <MenuBarItem href="/bookmarks" title="Bookmarks" icon={Bookmark} />
     </div>
   );
 }

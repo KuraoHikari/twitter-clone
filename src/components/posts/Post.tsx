@@ -11,6 +11,7 @@ import UserTooltip from "../linkify/UserTooltip";
 import MediaListPreviews from "./media/MediaListPreviews";
 import LikeButton from "./like/LikeButton";
 import { MessageSquare } from "lucide-react";
+import BookmarkButton from "./bookmark/BookmarkButton";
 
 interface PostProps {
   post: PostData;
@@ -78,6 +79,14 @@ export default function Post({ post }: PostProps) {
             </span>
           </button>
         </div>
+        <BookmarkButton
+          postId={post.id}
+          initialState={{
+            isBookmarkedByUser: post.bookmarks.some(
+              (bookmark) => bookmark.userId === user.id,
+            ),
+          }}
+        />
       </div>
     </article>
   );

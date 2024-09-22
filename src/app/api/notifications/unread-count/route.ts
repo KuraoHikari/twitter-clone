@@ -4,9 +4,10 @@ import {
   ERROR_RESPONSE_INTERNAL_SERVER_ERROR,
   ERROR_RESPONSE_UNAUTHORIZED,
   STATUS_CODE_INTERNAL_SERVER_ERROR,
+  STATUS_CODE_OK,
   STATUS_CODE_UNAUTHORIZED,
 } from "@/lib/response";
-import { notificationsInclude, NotificationsPage } from "@/lib/types";
+import { NotificationCountInfo } from "@/lib/types";
 import { NextRequest } from "next/server";
 
 export async function GET(req: NextRequest) {
@@ -20,28 +21,18 @@ export async function GET(req: NextRequest) {
       );
     }
 
-    const cursor = req.nextUrl.searchParams.get("cursor") || undefined;
-
-    const pageSize = 5;
-
-    const notifications = await prisma.notification.findMany({
+    const unreadCount = await prisma.notification.count({
       where: {
         recipientId: user.id,
+        read: false,
       },
-      include: notificationsInclude,
-      orderBy: { createdAt: "desc" },
-      take: pageSize + 1,
-      cursor: cursor ? { id: cursor } : undefined,
     });
 
-    const nextCursor =
-      notifications.length > pageSize ? notifications[pageSize].id : null;
-
-    const data: NotificationsPage = {
-      notifications: notifications.slice(0, pageSize),
-      nextCursor,
+    const data: NotificationCountInfo = {
+      unreadCount,
     };
-    return Response.json(data);
+
+    return Response.json(data, { status: STATUS_CODE_OK });
   } catch (error) {
     return Response.json(
       { error: ERROR_RESPONSE_INTERNAL_SERVER_ERROR },
