@@ -16,6 +16,7 @@ export default function MenuBar({ className, initialState }: MenuBarProps) {
     <div className={className}>
       <MenuBarItem href="/" title="Home" icon={Home} />
       <NotificationsButton
+        href="/notifications"
         initialState={{ unreadCount: initialState.unreadCount }}
       />
       <MenuBarItem href="/bookmarks" title="Bookmarks" icon={Bookmark} />

@@ -1,37 +1,40 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import kyInstance from "@/lib/ky";
+import useQueryGetNotificationCount from "@/hooks/useQueryGetNotificationCount";
 import { NotificationCountInfo } from "@/lib/types";
-import { useQuery } from "@tanstack/react-query";
+import { cn } from "@/lib/utils";
 import { Bell } from "lucide-react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 interface NotificationsButtonProps {
   initialState: NotificationCountInfo;
+  href: string;
 }
 
 export default function NotificationsButton({
   initialState,
+  href,
 }: NotificationsButtonProps) {
-  const { data } = useQuery({
-    queryKey: ["unread-notification-count"],
-    queryFn: () =>
-      kyInstance
-        .get("/api/notifications/unread-count")
-        .json<NotificationCountInfo>(),
-    initialData: initialState,
-    refetchInterval: 60 * 1000,
-  });
+  const { data } = useQueryGetNotificationCount({ initialState });
+
+  const pathname = usePathname();
+
+  // Determine if this menu item is active
+  const isActive = pathname === href;
 
   return (
     <Button
       variant="ghost"
-      className="flex items-center justify-start gap-3"
+      className={cn(
+        "flex items-center justify-start gap-3",
+        isActive ? "text-primary" : "text-foreground",
+      )}
       title="Notifications"
       asChild
     >
-      <Link href="/notifications">
+      <Link href={href}>
         <div className="relative">
           <Bell />
           {!!data.unreadCount && (

@@ -10,8 +10,11 @@ import Linkify from "../linkify/Linkify";
 import UserTooltip from "../linkify/UserTooltip";
 import MediaListPreviews from "./media/MediaListPreviews";
 import LikeButton from "./like/LikeButton";
-import { MessageSquare } from "lucide-react";
+
 import BookmarkButton from "./bookmark/BookmarkButton";
+import { useState } from "react";
+import CommentButton from "./comments/CommentButton";
+import Comments from "./comments/Comments";
 
 interface PostProps {
   post: PostData;
@@ -19,6 +22,8 @@ interface PostProps {
 
 export default function Post({ post }: PostProps) {
   const { user } = useSession();
+
+  const [showComments, setShowComments] = useState(false);
 
   return (
     <article className="group/post space-y-3 rounded-2xl bg-card p-5 shadow-sm">
@@ -71,13 +76,10 @@ export default function Post({ post }: PostProps) {
               isLikedByUser: post.likes.some((like) => like.userId === user.id),
             }}
           />
-          <button className="flex items-center gap-2">
-            <MessageSquare className="size-5" />
-            <span className="text-sm font-medium tabular-nums">
-              {post._count.comments}{" "}
-              <span className="hidden sm:inline">comments</span>
-            </span>
-          </button>
+          <CommentButton
+            post={post}
+            onClick={() => setShowComments(!showComments)}
+          />
         </div>
         <BookmarkButton
           postId={post.id}
@@ -88,6 +90,7 @@ export default function Post({ post }: PostProps) {
           }}
         />
       </div>
+      {showComments && <Comments post={post} />}
     </article>
   );
 }
