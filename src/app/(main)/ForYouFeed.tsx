@@ -17,7 +17,9 @@ export default function ForYouFeed({}: ForYouFeedProps) {
     isFetchingNextPage,
     status,
   } = useInfinitePosts();
+  console.log("🚀 ~ ForYouFeed ~ data:", data);
   const posts = data?.pages.flatMap((page) => page.posts) || [];
+  console.log("🚀 ~ ForYouFeed ~ posts:", posts);
 
   if (status === "pending") {
     return <PostsLoadingSkeleton />;

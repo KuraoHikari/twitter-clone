@@ -1,6 +1,6 @@
 "use client";
 
-import { Bell, Bookmark, Home } from "lucide-react";
+import { Bell, Bookmark, Home, MessageCircle } from "lucide-react";
 
 import MenuBarItem from "./MenuBarItem";
 import { NotificationCountInfo } from "@/lib/types";
@@ -20,6 +20,7 @@ export default function MenuBar({ className, initialState }: MenuBarProps) {
         initialState={{ unreadCount: initialState.unreadCount }}
       />
       <MenuBarItem href="/bookmarks" title="Bookmarks" icon={Bookmark} />
+      <MenuBarItem href="/messages" title="Messages" icon={MessageCircle} />
     </div>
   );
 }

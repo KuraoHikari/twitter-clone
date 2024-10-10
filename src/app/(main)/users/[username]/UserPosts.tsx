@@ -19,6 +19,7 @@ const UserPosts = ({ userId }: UserPostsProps) => {
     isFetchingNextPage,
     status,
   } = useInfiniteUserPosts(userId);
+
   const posts = data?.pages.flatMap((page) => page.posts) || [];
 
   if (status === "pending") {
