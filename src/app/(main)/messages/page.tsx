@@ -3,6 +3,9 @@ import TrendsSidebar from "@/components/TrendsSidebar";
 import { Metadata } from "next";
 import Header from "./[messageId]/Header";
 import MessageBox from "./[messageId]/MessageBox";
+import { cn } from "@/lib/utils";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import MessageForm from "./[messageId]/MessageForm";
 
 export const metadata: Metadata = {
   title: "Messages",
@@ -15,11 +18,23 @@ export default function Page() {
       <div className="h-full w-full">
         <div className="flex h-full flex-col">
           <Header />
-          {/* <div className="flex-1 overflow-y-auto">
+          <ScrollArea className={cn(`flex-1`)}>
             <MessageBox />
-          </div> */}
-          {/* <Body initialMessages={messages} />
-          <Form /> */}
+            <MessageBox />
+            <MessageBox />
+            <MessageBox />
+            <MessageBox />
+            <MessageBox />
+            <MessageBox />
+            <MessageBox />
+            <MessageBox />
+            <MessageBox />
+
+            <MessageBox />
+
+            <MessageBox />
+          </ScrollArea>
+          <MessageForm />
         </div>
       </div>
     </main>

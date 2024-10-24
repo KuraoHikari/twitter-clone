@@ -6,9 +6,7 @@ const ConversationList = () => {
   return (
     <>
       <ScrollArea
-        className={cn(
-          `hidden h-full w-full border-gray-200 lg:w-96 lg:border-r`,
-        )}
+        className={cn(`h-full w-full border-gray-200 lg:w-96 lg:border-r`)}
       >
         <div className="me-4">
           {/* {items.map((item) => (
