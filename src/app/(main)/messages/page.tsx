@@ -6,6 +6,7 @@ import MessageBox from "./[messageId]/MessageBox";
 import { cn } from "@/lib/utils";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import MessageForm from "./[messageId]/MessageForm";
+import { PlusCircle } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Messages",
