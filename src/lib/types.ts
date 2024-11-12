@@ -29,6 +29,8 @@ export type UserData = Prisma.UserGetPayload<{
   select: ReturnType<typeof getUserDataSelect>;
 }>;
 
+export type FollowersData = Omit<UserData, "followers" | "_count">;
+
 export function getPostDataInclude(loggedInUserId: string) {
   return {
     user: {
@@ -66,6 +68,11 @@ export type PostData = Prisma.PostGetPayload<{
 
 export interface PostsPage {
   posts: PostData[];
+  nextCursor: string | null;
+}
+
+export interface FollowersPage {
+  followers: FollowersData[];
   nextCursor: string | null;
 }
 
