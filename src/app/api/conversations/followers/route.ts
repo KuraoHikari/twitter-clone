@@ -21,7 +21,7 @@ export async function GET(req: NextRequest) {
     }
     const cursor = req.nextUrl.searchParams.get("cursor") || undefined;
 
-    const pageSize = 5;
+    const pageSize = 3;
 
     const followersList = await prisma.user.findMany({
       where: {
@@ -33,6 +33,19 @@ export async function GET(req: NextRequest) {
             followerId: loggedInUser.id,
           },
         },
+        AND: [
+          {
+            conversations: {
+              none: {
+                users: {
+                  some: {
+                    id: loggedInUser.id,
+                  },
+                },
+              },
+            },
+          },
+        ],
       },
       select: {
         id: true,

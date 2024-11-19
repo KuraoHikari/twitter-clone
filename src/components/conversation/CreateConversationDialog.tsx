@@ -9,13 +9,15 @@ import {
 import LoadingButton from "../LoadingButton";
 import { Button } from "../ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
-import { ScrollArea } from "../ui/scroll-area";
-import Avatar from "./Avatar";
+
 import { cn } from "@/lib/utils";
-import useInfiniteFollowers from "@/hooks/useInfiniteFollowers";
+
 import Followers from "../followers/Followers";
 import { InfiniteScrollArea } from "../infiniteScrollArea";
 import { Loader2 } from "lucide-react";
+import useCreateConversationMutation from "./mutations";
+import useInfiniteFollowersCreateConversation from "@/hooks/useInfiniteFollowersCreateConversation";
+import { useSession } from "@/app/(main)/SessionProvider";
 
 interface CreateConversationDialogProps {
   open: boolean;
@@ -26,6 +28,8 @@ export default function CreateConversationDialog({
   open,
   onClose,
 }: CreateConversationDialogProps) {
+  const { user } = useSession();
+  const mutation = useCreateConversationMutation(user.id);
   function handleOpenChange(open: boolean) {
     if (!open) {
       onClose();
@@ -39,8 +43,8 @@ export default function CreateConversationDialog({
     isFetching,
     isFetchingNextPage,
     status,
-  } = useInfiniteFollowers();
-  console.log("🚀 ~ ForYouFeed ~ data:", data);
+  } = useInfiniteFollowersCreateConversation();
+
   const followers = data?.pages.flatMap((page) => page.followers) || [];
 
   return (
@@ -70,6 +74,7 @@ export default function CreateConversationDialog({
             >
               {followers.map((follow) => (
                 <Followers
+                  onClick={() => mutation.mutate(follow.id)}
                   key={follow.id}
                   avatarUrl={follow.avatarUrl}
                   displayName={follow.displayName}
