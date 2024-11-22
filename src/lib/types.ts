@@ -31,6 +31,42 @@ export type UserData = Prisma.UserGetPayload<{
 
 export type FollowersData = Omit<UserData, "followers" | "_count">;
 
+export function getConversationDataInclude() {
+  return {
+    users: {
+      select: {
+        id: true,
+        username: true,
+        displayName: true,
+        avatarUrl: true,
+        bio: true,
+        createdAt: true,
+      },
+    },
+    messages: {
+      select: {
+        id: true,
+        body: true,
+        image: true,
+        sender: {
+          select: {
+            id: true,
+            username: true,
+            displayName: true,
+            avatarUrl: true,
+            bio: true,
+          },
+        },
+        createdAt: true,
+      },
+    },
+  } satisfies Prisma.ConversationInclude;
+}
+
+export type ConversationData = Prisma.ConversationGetPayload<{
+  include: ReturnType<typeof getConversationDataInclude>;
+}>;
+
 export function getPostDataInclude(loggedInUserId: string) {
   return {
     user: {
@@ -73,6 +109,11 @@ export interface PostsPage {
 
 export interface FollowersPage {
   followers: FollowersData[];
+  nextCursor: string | null;
+}
+
+export interface ConversationsPage {
+  conversations: ConversationData[];
   nextCursor: string | null;
 }
 

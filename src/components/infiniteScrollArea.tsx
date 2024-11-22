@@ -16,9 +16,10 @@ const InfiniteScrollArea = React.forwardRef<
   InfiniteScrollContainerProps
 >(({ className, children, onBottomReached, ...props }, ref) => {
   const { ref: inViewRef } = useInView({
-    rootMargin: "200px",
+    rootMargin: "800px",
     onChange(inView) {
       if (inView) {
+        console.log("🚀 ~ onChange ~ inView:", inView);
         onBottomReached();
       }
     },
