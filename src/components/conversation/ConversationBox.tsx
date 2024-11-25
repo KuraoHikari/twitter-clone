@@ -4,20 +4,34 @@ import { cn, formatRelativeDate } from "@/lib/utils";
 import Avatar from "./Avatar";
 import { ConversationData } from "@/lib/types";
 import { useSession } from "@/app/(main)/SessionProvider";
+import { useRouter } from "next/navigation";
+import { useCallback } from "react";
 
 interface ConversationBoxProps {
   conversation: ConversationData;
+  selected?: boolean;
 }
 
-const ConversationBox = ({ conversation }: ConversationBoxProps) => {
+const ConversationBox = ({ conversation, selected }: ConversationBoxProps) => {
   const { user } = useSession();
+  const router = useRouter();
+
+  const handleClick = useCallback(() => {
+    router.push(`/messages/${conversation.id}`);
+  }, [conversation, router]);
 
   const conversationUser = conversation.users.find(
     (userConv) => userConv.id !== user.id,
   );
 
   return (
-    <div className="relative flex w-full cursor-pointer items-center space-x-3 rounded-lg bg-card p-3 transition-colors hover:bg-primary">
+    <div
+      onClick={handleClick}
+      className={cn(
+        "relative my-1 flex w-full cursor-pointer items-center space-x-3 rounded-lg bg-card p-3 transition-colors hover:bg-primary",
+        selected ? "bg-background" : "",
+      )}
+    >
       <Avatar />
       <div className="min-w-0 flex-1">
         <div className="focus:outline-none">

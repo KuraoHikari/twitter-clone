@@ -98,6 +98,21 @@ export function getPostDataInclude(loggedInUserId: string) {
   } satisfies Prisma.PostInclude;
 }
 
+export function getMessagesDataInclude() {
+  return {
+    sender: {
+      select: {
+        id: true,
+        username: true,
+        displayName: true,
+        avatarUrl: true,
+        bio: true,
+        createdAt: true,
+      },
+    },
+  } satisfies Prisma.MessageInclude;
+}
+
 export type PostData = Prisma.PostGetPayload<{
   include: ReturnType<typeof getPostDataInclude>;
 }>;

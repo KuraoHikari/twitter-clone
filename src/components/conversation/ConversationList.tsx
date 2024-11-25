@@ -7,8 +7,10 @@ import { useState, useEffect, useRef } from "react";
 import CreateConversationDialog from "./CreateConversationDialog";
 import useInfiniteConversations from "@/hooks/useInfiniteConversations";
 import { InfiniteScrollArea } from "../infiniteScrollArea";
+import useConversation from "@/hooks/useConversation";
 
 const ConversationList = () => {
+  const { messageId, isOpen } = useConversation();
   const [showCreateConversationDialog, setShowCreateConversationDialog] =
     useState(false);
 
@@ -57,6 +59,7 @@ const ConversationList = () => {
             <ConversationBox
               key={conversation.id}
               conversation={conversation}
+              selected={conversation.id === messageId}
             />
           ))}
           {isFetchingNextPage && (
