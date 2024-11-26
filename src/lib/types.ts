@@ -59,6 +59,9 @@ export function getConversationDataInclude() {
         },
         createdAt: true,
       },
+      orderBy: {
+        createdAt: "desc",
+      },
     },
   } satisfies Prisma.ConversationInclude;
 }

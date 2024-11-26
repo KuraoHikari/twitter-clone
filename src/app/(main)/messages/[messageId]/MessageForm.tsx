@@ -9,9 +9,14 @@ import StarterKit from "@tiptap/starter-kit";
 import { cn } from "@/lib/utils";
 import "./styless.css";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import LoadingButton from "@/components/LoadingButton";
+import { useSendMessageMutation } from "./mutations";
+import useConversation from "@/hooks/useConversation";
 
 const MessageForm = () => {
-  const { user } = useSession();
+  const { messageId } = useConversation();
+
+  const mutation = useSendMessageMutation();
 
   const textEditor = useEditor({
     extensions: [
@@ -31,7 +36,10 @@ const MessageForm = () => {
     }) || "";
 
   function onSubmit() {
-    console.log(input);
+    mutation.mutate({
+      content: input,
+      conversationId: messageId,
+    });
     textEditor?.commands.clearContent();
   }
   return (
@@ -57,12 +65,15 @@ const MessageForm = () => {
           />
           {/* <input /> */}
         </div>
-        <button
+
+        <LoadingButton
           onClick={onSubmit}
-          className="cursor-pointer rounded-full bg-sky-500 p-2 transition hover:bg-sky-600"
+          loading={mutation.isPending}
+          disabled={!input.trim()}
+          className="min-w-20"
         >
           <SendHorizonal size={18} className="" />
-        </button>
+        </LoadingButton>
       </div>
     </div>
   );

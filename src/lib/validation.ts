@@ -34,4 +34,7 @@ export type UpdateUserProfileValues = z.infer<typeof updateUserProfileSchema>;
 
 export const createCommentSchema = z.object({ content: requiredString });
 
-export const createMessageSchema = z.object({ content: requiredString });
+export const createMessageSchema = z.object({
+  content: requiredString,
+  conversationId: z.string(),
+});
