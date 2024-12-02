@@ -75,7 +75,7 @@ export function useUpdateProfileMutation() {
       });
     },
     onError(error) {
-      console.error(error);
+      // console.error(error);
       toast({
         variant: "destructive",
         description: "Failed to update profile. Please try again.",

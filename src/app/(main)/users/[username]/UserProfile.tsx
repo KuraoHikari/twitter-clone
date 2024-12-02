@@ -21,7 +21,7 @@ const UserProfile = ({ user, loggedInUserId }: UserProfileProps) => {
     ),
   };
 
-  console.log("🚀 ~ UserProfile ~ followerInfo:", followerInfo);
+  //console.log("🚀 ~ UserProfile ~ followerInfo:", followerInfo);
 
   return (
     <div className="h-fit w-full space-y-5 rounded-2xl bg-card p-5 shadow-sm">

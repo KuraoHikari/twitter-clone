@@ -52,7 +52,7 @@ export function useSubmitCommentMutation(postId: string) {
       });
     },
     onError(error) {
-      console.error(error);
+      // console.error(error);
       toast({
         variant: "destructive",
         description: "Failed to submit comment. Please try again.",

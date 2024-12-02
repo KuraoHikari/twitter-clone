@@ -41,7 +41,7 @@ export default function useBookmarkedPostMutation({
     },
     onError(error, variables, context) {
       queryClient.setQueryData(queryKey, context?.previousState);
-      console.error(error);
+      //console.error(error);
       toast({
         variant: "destructive",
         description: "Something went wrong. Please try again.",

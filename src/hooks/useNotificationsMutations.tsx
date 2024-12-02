@@ -14,7 +14,7 @@ export function useNotificationsMutations() {
       });
     },
     onError(error) {
-      console.error("Failed to mark notifications as read", error);
+      //console.error("Failed to mark notifications as read", error);
     },
   });
 }

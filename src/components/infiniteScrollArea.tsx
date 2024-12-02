@@ -19,7 +19,7 @@ const InfiniteScrollArea = React.forwardRef<
     rootMargin: "800px",
     onChange(inView) {
       if (inView) {
-        console.log("🚀 ~ onChange ~ inView:", inView);
+        // console.log("🚀 ~ onChange ~ inView:", inView);
         onBottomReached();
       }
     },

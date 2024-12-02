@@ -45,7 +45,7 @@ export default function useCreateConversationMutation(userId: string) {
       });
     },
     onError(error: string | Error) {
-      console.log(error);
+      //  console.log(error);
       toast({
         variant: "destructive",
         description: error instanceof Error ? error.message : error,

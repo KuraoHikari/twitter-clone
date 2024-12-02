@@ -42,7 +42,7 @@ export async function GET(
 
     return Response.json(user);
   } catch (error) {
-    console.error(error);
+    // console.error(error);
     return Response.json(
       { error: ERROR_RESPONSE_INTERNAL_SERVER_ERROR },
       { status: STATUS_CODE_INTERNAL_SERVER_ERROR },

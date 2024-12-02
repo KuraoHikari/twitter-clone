@@ -46,7 +46,7 @@ export default function useDeletePostMutation() {
       }
     },
     onError(error) {
-      console.log(error);
+      //console.log(error);
 
       toast({
         variant: "destructive",

@@ -35,10 +35,10 @@ export function useSendMessageMutation() {
         });
 
         if (conversationPageIndex === -1) return oldData;
-        console.log(
-          "🚀 ~ onSuccess: ~ conversationPageIndex:",
-          conversationPageIndex,
-        );
+        // console.log(
+        //   "🚀 ~ onSuccess: ~ conversationPageIndex:",
+        //   conversationPageIndex,
+        // );
 
         // Find the conversation that the message belongs to
         const conversation = oldData.pages[

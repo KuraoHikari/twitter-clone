@@ -52,7 +52,7 @@ export async function GET(req: Request) {
 
     return new Response();
   } catch (error) {
-    console.error(error);
+    //console.error(error);
     return Response.json(
       { error: ERROR_RESPONSE_INTERNAL_SERVER_ERROR },
       { status: STATUS_CODE_INTERNAL_SERVER_ERROR },

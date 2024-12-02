@@ -44,7 +44,7 @@ export default function useLikeUnlikePostMutation({
     },
     onError(error, variables, context) {
       queryClient.setQueryData(queryKey, context?.previousState);
-      console.log("🚀 ~ onError ~ error:", error);
+      //console.log("🚀 ~ onError ~ error:", error);
 
       toast({
         variant: "destructive",

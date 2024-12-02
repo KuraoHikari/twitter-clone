@@ -115,7 +115,7 @@ export async function POST(
         },
       });
     }
-    console.log("🚀 ~ upsertLike:", upsertLike);
+    // console.log("🚀 ~ upsertLike:", upsertLike);
     return new Response();
   } catch (error) {
     return Response.json(
@@ -159,7 +159,7 @@ export async function DELETE(
         postId: postId,
       },
     });
-    console.log("🚀 ~ deletedPost:", deletedPost);
+    // console.log("🚀 ~ deletedPost:", deletedPost);
 
     if (deletedPost.count > 0) {
       await prisma.notification.deleteMany({

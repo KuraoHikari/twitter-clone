@@ -34,7 +34,7 @@ export function useFollowMutation(
     },
     onError(error, variables, context) {
       queryClient.setQueryData(queryKey, context?.previousState);
-      console.error("🚀 ~ onError ~ error:", error);
+      //console.error("🚀 ~ onError ~ error:", error);
 
       toast({
         variant: "destructive",
